@@ -1,5 +1,6 @@
 import { points } from "./points.js";
 import { axisArrows } from "./axisArrows.js";
+import { axisAtZero} from "./axisZero.js";
 
 const Chart = window.Chart;
 
@@ -45,10 +46,10 @@ new Chart(ctx, {
         maintainAspectRatio: false,
         layout: {
             padding: {
-                right: 55,
-                left: 15,
+                right: 85,
+                left: 35,
                 bottom: 25,
-                top: 25,
+                top: 45,
             },
         },
         scales: {
@@ -58,21 +59,34 @@ new Chart(ctx, {
                 min: xLabels[0] - xStep,
                 max: xLabels[xLabels.length - 1] + xStep,
                 ticks: {
-                    stepSize: xStep
+                    stepSize: xStep,
+                    callback: value => parseFloat((value + xStep).toFixed(1)) === xLabels[0]
+                        ? ''
+                        : value.toFixed(1),
+                    font: {
+                        size: 16,
+                    }
                 },
             },
             y: {
                 type: 'linear',
                 position: 'bottom',
-                min: 0,
+                min: 120,
                 max: yLabels[yLabels.length - 1] + yStep,
                 ticks: {
-                    stepSize: yStep
+                    stepSize: yStep,
+                    callback: value => parseInt((value + yStep)) === yLabels[0]
+                        ? ''
+                        : value,
+                    font: {
+                        size: 16
+                    }
                 },
             },
         },
     },
     plugins: [
-        axisArrows
+        axisArrows,
+        axisAtZero
     ],
 });
