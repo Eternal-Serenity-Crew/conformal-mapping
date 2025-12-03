@@ -25,9 +25,10 @@ new Chart(ctx, {
         labels: xs,
         datasets: [
             {
-                label: 'Наблюдения',
+                label: 'Распределение автомашин',
                 data: points,
                 backgroundColor: '#00b4d8',
+                pointRadius: 4
             },
             {
                 label: 'Линия регрессии',
