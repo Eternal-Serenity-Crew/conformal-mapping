@@ -44,6 +44,15 @@ new Chart(ctx, {
     options: {
         responsive: true,
         maintainAspectRatio: false,
+        plugins: {
+          legend: {
+              labels: {
+                  font: {
+                      size: 16
+                  }
+              }
+          }
+        },
         layout: {
             padding: {
                 right: 85,
@@ -64,7 +73,7 @@ new Chart(ctx, {
                         ? ''
                         : value.toFixed(1),
                     font: {
-                        size: 16,
+                        size: 15,
                     }
                 },
             },
