@@ -1,4 +1,5 @@
 import { points } from "./points.js";
+import { axisArrows } from "./axisArrows.js";
 
 const Chart = window.Chart;
 
@@ -39,6 +40,14 @@ new Chart(ctx, {
         ],
     },
     options: {
+        layout: {
+            padding: {
+                right: 55,  // место для стрелки и подписи X
+                left: 15,   // место для стрелки Y
+                bottom: 25,
+                top: 25,
+            },
+        },
         scales: {
             x: {
                 type: 'linear',
@@ -52,7 +61,7 @@ new Chart(ctx, {
             y: {
                 type: 'linear',
                 position: 'bottom',
-                min: yLabels[0] - yStep,
+                min: 0,
                 max: yLabels[yLabels.length - 1] + yStep,
                 ticks: {
                     stepSize: yStep
@@ -60,4 +69,7 @@ new Chart(ctx, {
             },
         },
     },
+    plugins: [
+        axisArrows
+    ],
 });
