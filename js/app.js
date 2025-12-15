@@ -272,24 +272,27 @@ function animate() {
     if (stageIndex === 0) {
         from = D1;
         to = Z1;
-        stageName = "Stage 1: Möbius Transform ζ = i(1+z)/(1-z)";
+        stageName = "Stage 1: Möbius Transform \\( \\zeta = \\varphi(z) = \\dfrac{1+z}{1-z} \\)";
     } else if (stageIndex === 1) {
         from = Z1;
         to = Z2;
-        stageName = "Stage 2: Square Root η = √ζ";
+        stageName = "Stage 2: Rotation \\( w = e^{i\\pi/4} \\eta \\)";
     } else {
         frame = 0;
         stageIndex = 0;
         from = D1;
         to = Z1;
-        stageName = "Stage 1: Möbius Transform ζ = i(1+z)/(1-z)";
+        stageName = "Stage 1: Möbius Transform \\( \\zeta = \\varphi(z) = \\dfrac{1+z}{1-z} \\)";
     }
 
     const current = from.map((p, i) => lerp(p, to[i], t));
     draw(current, stageIndex + 1);
 
     // Update labels
-    stageLabel.textContent = stageName;
+    stageLabel.innerHTML = stageName;
+    if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise([stageLabel]);
+    }
     frameCounter.textContent = Math.round(frame).toString();
     stageCounter.textContent = (stageIndex + 1).toString();
     progressCounter.textContent = progress + "%";
