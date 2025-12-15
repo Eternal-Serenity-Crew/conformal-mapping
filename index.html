@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conformal Mapping Animation: D₁ → D₂</title>
+    <title>Анимация конформных преобразование: D₁ → D₂</title>
     <link rel="stylesheet" href="css/main.css">
     <script>
         MathJax = {
@@ -17,13 +17,14 @@
     </script>
 </head>
 <body>
-<h1>Conformal Mapping: D₁ → D₂</h1>
-<p class="description">
-    Animation of the upper semicircle mapping to an angular sector through three conformal transformations:
-    <br><strong>Stage 1:</strong> Möbius transform ζ = i(1+z)/(1-z)
-    <br><strong>Stage 2:</strong> Square root η = √ζ
-    <br><strong>Stage 3:</strong> Rotation w = e^(iπ/4)·η
-</p>
+<h1>Конформных преобразование: D₁ → D₂</h1>
+
+<div class="description">
+    <p>Анимация преобразования верхнего полукруга в угловой сектор с помощью трех конформных преобразований:</p>
+    <strong>Шаг 1:</strong> Мёбиусово преобразование \( \zeta = \varphi(z) = \dfrac{1+z}{1-z} \)
+    <br><strong>Шаг 2:</strong> Квадратный корень \( \eta = \sqrt{\zeta} \)
+    <br><strong>Шаг 3:</strong> Поворот \( w = e^{i\pi/4} \eta \)
+</div>
 
 <div style="position: relative; display: inline-block;">
     <canvas id="canvas" width="800" height="800"></canvas>
@@ -31,18 +32,18 @@
 </div>
 
 <div class="controls">
-    <button id="playBtn">▶ Play</button>
-    <button id="pauseBtn">⏸ Pause</button>
-    <button id="resetBtn">⟲ Reset</button>
+    <button id="playBtn">▶ Начать</button>
+    <button id="pauseBtn">⏸ Пауза</button>
+    <button id="resetBtn">⟲ Сброс</button>
     <label>
-        Speed: <input type="range" id="speedSlider" min="0.25" max="2" step="0.001" value="0.5" style="width: 100px;">
+        Скорость анимации: <input type="range" id="speedSlider" min="0.25" max="2" step="0.001" value="0.5" style="width: 100px;">
     </label>
 </div>
 
 <div class="info">
-    Frame: <span id="frameCounter">0</span> |
-    Stage: <span id="stageCounter">1</span> |
-    Progress: <span id="progressCounter">0%</span>
+    Кадр: <span id="frameCounter">0</span> |
+    Шаг преобразования: <span id="stageCounter">1</span> |
+    Прогресс: <span id="progressCounter">0%</span>
 </div>
 
 <script src="js/app.js"></script>

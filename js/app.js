@@ -272,17 +272,17 @@ function animate() {
     if (stageIndex === 0) {
         from = D1;
         to = Z1;
-        stageName = "Stage 1: Möbius Transform \\( \\zeta = \\varphi(z) = \\dfrac{1+z}{1-z} \\)";
+        stageName = "Шаг 1: Мёбиусово преобразование \\( \\zeta = \\varphi(z) = \\dfrac{1+z}{1-z} \\)";
     } else if (stageIndex === 1) {
         from = Z1;
         to = Z2;
-        stageName = "Stage 2: Rotation \\( w = e^{i\\pi/4} \\eta \\)";
+        stageName = "Шаг 2: Поворот \\( w = e^{i\\pi/4} \\eta \\)";
     } else {
         frame = 0;
         stageIndex = 0;
         from = D1;
         to = Z1;
-        stageName = "Stage 1: Möbius Transform \\( \\zeta = \\varphi(z) = \\dfrac{1+z}{1-z} \\)";
+        stageName = "Шаг 1: Мёбиусово преобразование \\( \\zeta = \\varphi(z) = \\dfrac{1+z}{1-z} \\)";
     }
 
     const current = from.map((p, i) => lerp(p, to[i], t));
