@@ -16,7 +16,7 @@ const pointSize = 2.5; // размер точек
 
 let frame = 0;
 let isPlaying = true;
-let speed = 1;
+let speed = 0.5;
 
 // =====================================================================
 // HELPER FUNCTIONS
