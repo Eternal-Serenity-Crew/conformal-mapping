@@ -1,45 +1,60 @@
-import { points } from "./points.js";
-import { axisArrows } from "./axisArrows.js";
-import { axisAtZero} from "./axisZero.js";
+import {axisArrows} from "./axisArrows.js";
+import {axisAtZero} from "./axisZero.js";
 
 const Chart = window.Chart;
 
-const xLabels = [11.6, 16.6, 21.6, 26.6, 31.6, 36.6]
-const yLabels = [160, 200, 240, 280, 320, 360, 400, 440]
+const upper = [];
+const base = [];
+const step = 0.01;
 
-const xStep = xLabels[1] - xLabels[0]
-const yStep = yLabels[1] - yLabels[0]
-
-const xs = []
-const ys = []
-
-const isMobile = window.screen.orientation.type === "portrait-primary" | "portrait-secondary"
-
-for (let x = xLabels[0] - xStep; x < xLabels[xLabels.length - 1] + xStep; x++) {
-    xs.push(x)
-    ys.push(7.91 * x + 108.6)
+for (let x = -1; x <= 1; x += step) {
+    const y = Math.sqrt(1 - x * x);
+    upper.push({ x, y });          // дуга
 }
 
-const ctx = document.getElementById("canvas")
+for (let x = 1; x >= -1; x -= step) {
+    base.push({ x, y: 0 });        // ось x
+}
+
+const areaDataset = {
+    label: "Область",
+    type: "line",
+    data: [...upper, ...base],     // замкнули контур
+    borderColor: "purple",
+    backgroundColor: "rgba(128,0,128,0.6)",
+    fill: true,
+    pointRadius: 0,
+};
+
+const arcDataset = {
+    label: "Полукруг",
+    type: "line",
+    data: upper,
+    borderColor: "black",
+    borderWidth: 2,
+    pointRadius: 0,
+};
+
+
+const ctx = document.getElementById("canvas");
 
 new Chart(ctx, {
-    type: 'scatter',
+    type: "scatter",
     data: {
-        labels: xs,
         datasets: [
+            arcDataset,
+            areaDataset,
             {
-                label: 'Распределение автомашин',
-                data: points,
-                backgroundColor: '#00b4d8',
-                pointRadius: 4
-            },
-            {
-                label: 'Линия регрессии',
-                type: 'line',
-                data: ys,
-                borderColor: '#ff4d6d',
-                borderWidth: 2,
-                pointRadius: 0,
+                label: "Точки",
+                type: "scatter",
+                data: [
+                    {x: -1, y: 0},
+                    {x: 0, y: 0},
+                    {x: 1, y: 0},
+                    {x: 0, y: 1},
+                ],
+                backgroundColor: "black",
+                pointRadius: 4,
             },
         ],
     },
@@ -47,58 +62,33 @@ new Chart(ctx, {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            legend: {
-                align: isMobile ? "end" : "center",
-                labels: {
-                    font: {
-                        size: isMobile ? 10 : 16
-                    },
-                }
-            }
+            legend: {display: false},
         },
         layout: {
-            padding: {
-                right: isMobile ? 80 : 85,
-                left: isMobile ? 20 : 35,
-                bottom: isMobile ? 20 : 25,
-                top: isMobile ? 20 : 45,
-            },
+            padding: {left: 40, right: 40, top: 40, bottom: 40},
         },
         scales: {
             x: {
-                type: 'linear',
-                position: 'bottom',
-                min: xLabels[0] - xStep,
-                max: xLabels[xLabels.length - 1] + xStep,
+                type: "linear",
+                min: -1.2,
+                max: 1.2,
+                position: {y: 0},      // ось x через y = 0
                 ticks: {
-                    stepSize: xStep,
-                    callback: value => parseFloat((value + xStep).toFixed(1)) === xLabels[0]
-                        ? ''
-                        : value.toFixed(1),
-                    font: {
-                        size: 15,
-                    }
+                    stepSize: 0.5,
+                    font: {size: 14},
                 },
             },
             y: {
-                type: 'linear',
-                position: 'bottom',
-                min: 120,
-                max: yLabels[yLabels.length - 1] + yStep,
+                type: "linear",
+                min: -0.1,
+                max: 1.2,
+                position: {x: 0},      // ось y через x = 0
                 ticks: {
-                    stepSize: yStep,
-                    callback: value => parseInt((value + yStep)) === yLabels[0]
-                        ? ''
-                        : value,
-                    font: {
-                        size: 16
-                    }
+                    stepSize: 0.5,
+                    font: {size: 14},
                 },
             },
         },
     },
-    plugins: [
-        axisArrows,
-        axisAtZero
-    ],
+    plugins: [axisArrows, axisAtZero],
 });
